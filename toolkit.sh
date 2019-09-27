@@ -1,7 +1,7 @@
 _GITHUB_ACTIONS_TOOLKIT___MY_FILE_NAME='toolkit.sh'
 
-github::log() {
-  # Usage: github::log "debug" "any logging message"
+_github::log() {
+  # Usage: _github::log "debug" "any logging message"
 
   if (($# < 2)); then
     echo "::debug file=$_GITHUB_ACTIONS_TOOLKIT___MY_FILE_NAME::$0 requires log command type and the log message body"
@@ -43,7 +43,7 @@ github::debug() {
       return 0
     fi
 
-    github::log "$log_command" "$@"
+    _github::log "$log_command" "$@"
   fi
 }
 
@@ -58,7 +58,7 @@ github::warning() {
       return 0
     fi
 
-    github::log "$log_command" "$@"
+    _github::log "$log_command" "$@"
   fi
 }
 
@@ -73,7 +73,7 @@ github::error() {
       return 0
     fi
 
-    github::log "$log_command" "$@"
+    _github::log "$log_command" "$@"
   fi
 }
 
@@ -98,10 +98,26 @@ github::add_mask() {
   echo "::add-mask::$masked_value"
 }
 
-_github::set_output() {
+_github::set_env() {
   local -r name="$1"; shift 1
   local -r value="$@"
   echo ::set-env "name=$name::$value"
+}
+
+github::set_env() {
+  if [[ -p /dev/stdin ]]; then
+    while read name value; do
+      _github::set_env "$name" "$value"
+    done < <(cat -)
+  else
+    _github::set_env "$@"
+  fi
+}
+
+_github::set_output() {
+  local -r name="$1"; shift 1
+  local -r value="$@"
+  echo ::set-output "name=$name::$value"
 }
 
 github::set_output() {
