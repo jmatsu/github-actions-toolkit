@@ -23,6 +23,7 @@ commands: &commands
             rm -rf bats-core
           name: install BATS
 orbs:
+  shellcheck: circleci/shellcheck@1.3.14
   bats:
     commands: *commands
     executors: *executors
@@ -39,3 +40,5 @@ workflows:
   on_commit:
     jobs:
       - bats/test_all
+      - shellcheck/check:
+          exclude: (bin|test)/*
