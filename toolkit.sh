@@ -97,7 +97,7 @@ github::add_mask() {
   fi
 
   if [ -z "$masked_value" ]; then
-    file=$_GITHUB_ACTIONS_TOOLKIT___MY_FILE_NAME github::warning "the given value is empty so this action has no effect"
+    file=$_GITHUB_ACTIONS_TOOLKIT___MY_FILE_NAME github::warning "the given value is empty so this action may have no effect"
   fi
 
   echo "::add-mask::$masked_value"
@@ -106,7 +106,7 @@ github::add_mask() {
 _github::set_env() {
   local -r name="$1"; shift 1
   local -r value="$@"
-  echo ::set-env "name=$name::$value"
+  echo "::set-env name=$name::$value"
 }
 
 github::set_env() {
@@ -122,7 +122,7 @@ github::set_env() {
 _github::set_output() {
   local -r name="$1"; shift 1
   local -r value="$@"
-  echo ::set-output "name=$name::$value"
+  echo "::set-output name=$name::$value"
 }
 
 github::set_output() {
@@ -172,12 +172,12 @@ github::resume_commands() {
 }
 
 github::success() {
-  file="$_GITHUB_ACTIONS_TOOLKIT___MY_FILE_NAME" github::debug "Exit with zero code via $0"
+  file="$_GITHUB_ACTIONS_TOOLKIT___MY_FILE_NAME" github::debug "Exit with zero code via github::success"
   exit 0
 }
 
 github::failure() {
   local -r exit_status="${1:-1}"
-  file="$_GITHUB_ACTIONS_TOOLKIT___MY_FILE_NAME" github::debug "Exit with non-zero code ($exit_status) via $0"
+  file="$_GITHUB_ACTIONS_TOOLKIT___MY_FILE_NAME" github::debug "Exit with non-zero code ($exit_status) via github::failure"
   exit $exit_status
 }
