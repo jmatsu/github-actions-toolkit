@@ -41,4 +41,7 @@ workflows:
     jobs:
       - bats/test_all
       - shellcheck/check:
+          # SC2148: shebang is not required for this script
+          # SC2207: intended mapping. // mapfile may not be good for other shells.
+          ignore: SC2148,SC2207
           exclude: (bin|test)/*

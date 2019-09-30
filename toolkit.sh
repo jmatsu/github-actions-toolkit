@@ -24,7 +24,7 @@ _github::log() {
 
   if [ -p /dev/stdin ]; then
     local log_line=
-    while read log_line; do
+    while read -r log_line; do
       echo "$log_command::$log_line"
     done < <(cat -)
   else
@@ -33,7 +33,7 @@ _github::log() {
       return 0
     fi
 
-    echo "$log_command::$@"
+    echo "$log_command::$*"
   fi
 }
 
@@ -105,13 +105,13 @@ github::add_mask() {
 
 _github::set_env() {
   local -r name="$1"; shift 1
-  local -r value="$@"
+  local -r value="$*"
   echo "::set-env name=$name::$value"
 }
 
 github::set_env() {
   if [ -p /dev/stdin ]; then
-    while read name value; do
+    while read -r name value; do
       _github::set_env "$name" "$value"
     done < <(cat -)
   else
@@ -121,13 +121,13 @@ github::set_env() {
 
 _github::set_output() {
   local -r name="$1"; shift 1
-  local -r value="$@"
+  local -r value="$*"
   echo "::set-output name=$name::$value"
 }
 
 github::set_output() {
   if [ -p /dev/stdin ]; then
-    while read name value; do
+    while read -r name value; do
       _github::set_output "$name" "$value"
     done < <(cat -)
   else
@@ -136,7 +136,7 @@ github::set_output() {
 }
 
 github::add_path() {
-  local paths= path=
+  local paths='' path=''
 
   if [ -p /dev/stdin ]; then
     paths=($(cat -))
@@ -179,5 +179,5 @@ github::success() {
 github::failure() {
   local -r exit_status="${1:-1}"
   file="$_GITHUB_ACTIONS_TOOLKIT___MY_FILE_NAME" github::debug "Exit with non-zero code ($exit_status) via github::failure"
-  exit $exit_status
+  exit "$exit_status"
 }
