@@ -15,5 +15,7 @@ jobs:
       run: cp toolkit.sh actions/Dockerfile actions/set_env/
     - uses: ./actions/set_env
       id: set_env
-    - name: See environments
-      run: echo "$foo1 / $foo2"
+    - name: Assert foo1
+      run: [ "$foo1" = "bar1" ]
+    - name: Assert foo2
+      run: [ "$foo2" = "bar2" ]

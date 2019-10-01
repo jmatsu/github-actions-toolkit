@@ -15,5 +15,7 @@ jobs:
       run: cp toolkit.sh actions/Dockerfile actions/set_output/
     - uses: ./actions/set_output
       id: set_output
-    - name: See outputs
-      run: echo "${{ steps.set_output.outputs.foo1 }} / ${{ steps.set_output.outputs.foo2 }}"
+    - name: Assert foo1
+      run: [ "${{ steps.set_output.outputs.foo1 }}" = "bar1" ]
+    - name: Assert foo2
+      run: [ "${{ steps.set_output.outputs.foo2 }}" = "bar2" ]
