@@ -6,13 +6,30 @@ The ShellScript flavor of https://github.com/actions/toolkit
 
 Use submodule, subtree or download `toolkit.sh` and run `source /path/to/toolkit.sh` in your project sources or your Dockerfile.
 
+## References
+
+- https://help.github.com/en/articles/development-tools-for-github-actions
+
+## Known limitations
+
+For now, behaviours are tested on Bash. However, some of statements may not be POSIX compatible so this toolkit won't work on some shells. 
+
+## Development
+
+No special step is required to set up.
+Please modify `test/*.bats` to assure the validity of your changes and make sure `bin/run_test.bash` succeeds.
+
 ### Commands
 
 **github::set_env**
 
 ```bash
 github::set_env <name> <value>
-echo_multilines <name_and_value_separated_by_a_single_space...> | github::set_env
+cat<<EOF | github::set_env
+<name> <value>
+<name> <value>
+...
+EOF
 ```
 
 ref: https://help.github.com/en/articles/development-tools-for-github-actions#set-an-environment-variable-set-env
@@ -21,7 +38,11 @@ ref: https://help.github.com/en/articles/development-tools-for-github-actions#se
 
 ```bash
 github::set_output <name> <value>
-echo_multilines <name_and_value_separated_by_a_single_space...> | github::set_output
+cat<<EOF | github::set_output
+<name> <value>
+<name> <value>
+...
+EOF
 ```
 
 ref: https://help.github.com/en/articles/development-tools-for-github-actions#set-an-output-parameter-set-output
@@ -30,7 +51,11 @@ ref: https://help.github.com/en/articles/development-tools-for-github-actions#se
 
 ```bash
 [file=</path/to/file> [line=<line number>]] github::debug <log message>
-echo_multilines <log messages...> | [file=</path/to/file> [line=<line number>]] github::debug
+cat<<EOF | [file=</path/to/file> [line=<line number>]] github::debug
+<log message>
+<log message>
+...
+EOF
 ```
 
 ref: https://help.github.com/en/articles/development-tools-for-github-actions#set-a-debug-message-debug
@@ -39,7 +64,11 @@ ref: https://help.github.com/en/articles/development-tools-for-github-actions#se
 
 ```bash
 [file=</path/to/file> [line=<line number> [col=<column number>]]] github::warning <log message>
-echo_multilines <log messages...> | [file=</path/to/file> [line=<line number> [col=<column number>]]] github::warning
+cat<<EOF | [file=</path/to/file> [line=<line number> [col=<column number>]]] github::warning
+<log message>
+<log message>
+...
+EOF
 ```
 
 ref: https://help.github.com/en/articles/development-tools-for-github-actions#set-a-warning-message-debug
@@ -48,7 +77,11 @@ ref: https://help.github.com/en/articles/development-tools-for-github-actions#se
 
 ```bash
 [file=</path/to/file> [line=<line number> [col=<column number>]]] github::error <log message>
-echo_multilines <log messages...> | [file=</path/to/file> [line=<line number> [col=<column number>]]] github::error
+cat<<EOF | [file=</path/to/file> [line=<line number> [col=<column number>]]] github::error
+<log message>
+<log message>
+...
+EOF
 ```
 
 ref: https://help.github.com/en/articles/development-tools-for-github-actions#set-a-error-message-debug
@@ -81,19 +114,11 @@ ref: https://help.github.com/en/articles/development-tools-for-github-actions#ex
 **github::success**
 
 ```bash
-github::success # exist with zero code
+github::success # exit with zero code
 ```
 
 **github::failure**
 
 ```bash
-github::failure [exit_status] # exist with (exit_status || 1)
+github::failure [exit_status] # exit with (exit_status || 1)
 ```
-
-## Known limitations
-
-For now, behaviours are tested on Bash and Zsh. And also, some of statements are not POSIX compatible so this toolkit may not work on some shells. 
-
-## References
-
-- https://help.github.com/en/articles/development-tools-for-github-actions

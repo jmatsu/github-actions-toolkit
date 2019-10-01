@@ -1,0 +1,9 @@
+name: debug log
+author: Jumpei Matsuda
+description: An action to log debug messages
+runs:
+  using: 'docker'
+  image: '../Dockerfile'
+branding:
+  color: 'red'
+  icon: 'trash'
