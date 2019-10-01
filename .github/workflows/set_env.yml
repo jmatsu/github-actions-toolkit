@@ -16,6 +16,6 @@ jobs:
     - uses: ./actions/set_env
       id: set_env
     - name: Assert foo1
-      run: [ "$foo1" = "bar1" ]
+      run: '[ "$foo1" = "bar1" ]'
     - name: Assert foo2
-      run: [ "$foo2" = "bar2" ]
+      run: '[ "$foo2" = "bar2" ]'

@@ -16,6 +16,6 @@ jobs:
     - uses: ./actions/set_output
       id: set_output
     - name: Assert foo1
-      run: [ "${{ steps.set_output.outputs.foo1 }}" = "bar1" ]
+      run: '[ "${{ steps.set_output.outputs.foo1 }}" = "bar1" ]'
     - name: Assert foo2
-      run: [ "${{ steps.set_output.outputs.foo2 }}" = "bar2" ]
+      run: '[ "${{ steps.set_output.outputs.foo2 }}" = "bar2" ]'
