@@ -1,0 +1,21 @@
+name: testing for set_output
+
+on: 
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Copy toolkit.sh and Dockerfile
+      run: cp toolkit.sh actions/Dockerfile actions/set_output/
+    - uses: ./actions/set_output
+      id: set_output
+    - name: Assert foo1
+      run: '[ "${{ steps.set_output.outputs.foo1 }}" = "bar1" ]'
+    - name: Assert foo2
+      run: '[ "${{ steps.set_output.outputs.foo2 }}" = "bar2" ]'

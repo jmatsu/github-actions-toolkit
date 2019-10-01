@@ -1,6 +1,6 @@
-name: debug log
+name: set_env
 author: Jumpei Matsuda
-description: An action to log debug messages
+description: An action to set an environment variable
 runs:
   using: 'docker'
   image: 'Dockerfile'

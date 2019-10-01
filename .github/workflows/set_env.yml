@@ -1,0 +1,21 @@
+name: testing for set_env
+
+on: 
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Copy toolkit.sh and Dockerfile
+      run: cp toolkit.sh actions/Dockerfile actions/set_env/
+    - uses: ./actions/set_env
+      id: set_env
+    - name: Assert foo1
+      run: '[ "$foo1" = "bar1" ]'
+    - name: Assert foo2
+      run: '[ "$foo2" = "bar2" ]'

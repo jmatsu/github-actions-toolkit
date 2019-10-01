@@ -1,4 +1,4 @@
-name: testing for debug
+name: testing for warning
 
 on: 
   push
@@ -12,6 +12,6 @@ jobs:
       with:
         fetch-depth: 1
     - name: Copy toolkit.sh and Dockerfile
-      run: cp toolkit.sh actions/Dockerfile actions/debug/
-    - uses: ./actions/debug
-      id: debug
+      run: cp toolkit.sh actions/Dockerfile actions/warning/
+    - uses: ./actions/warning
+      id: warning

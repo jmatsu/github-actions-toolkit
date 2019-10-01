@@ -1,6 +1,6 @@
-name: debug log
+name: warning log
 author: Jumpei Matsuda
-description: An action to log debug messages
+description: An action to log warning messages
 runs:
   using: 'docker'
   image: 'Dockerfile'

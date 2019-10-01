@@ -1,0 +1,23 @@
+name: testing for add_path
+
+on: 
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Copy toolkit.sh and Dockerfile
+      run: cp toolkit.sh actions/Dockerfile actions/add_path/
+    - uses: ./actions/add_path
+      id: add_path
+    - name: Check added path / bin1
+      run: print_bin1
+    - name: Check added path / bin2
+      run: print_bin2
+    - name: Check added path / bin3
+      run: print_bin3

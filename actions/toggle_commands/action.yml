@@ -1,6 +1,6 @@
-name: debug log
+name: stop and resume commands
 author: Jumpei Matsuda
-description: An action to log debug messages
+description: An action to stop and resume commands
 runs:
   using: 'docker'
   image: 'Dockerfile'
