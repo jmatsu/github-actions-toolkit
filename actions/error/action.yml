@@ -1,6 +1,6 @@
-name: debug log
+name: error log
 author: Jumpei Matsuda
-description: An action to log debug messages
+description: An action to log error messages
 runs:
   using: 'docker'
   image: 'Dockerfile'

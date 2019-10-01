@@ -1,6 +1,6 @@
-name: debug log
+name: mask values
 author: Jumpei Matsuda
-description: An action to log debug messages
+description: An action to mask values
 runs:
   using: 'docker'
   image: 'Dockerfile'

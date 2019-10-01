@@ -1,0 +1,14 @@
+name: set output
+author: Jumpei Matsuda
+description: An action to set outputs
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+outputs:
+  foo1:
+    description: for testing
+  foo2:
+    description: for testing
+branding:
+  color: 'red'
+  icon: 'trash'

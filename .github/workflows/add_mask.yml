@@ -1,0 +1,19 @@
+name: testing for add_mask
+
+on: 
+  push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Copy toolkit.sh and Dockerfile
+      run: cp toolkit.sh actions/Dockerfile actions/add_mask/
+    - uses: ./actions/add_mask
+      id: add_mask
+    - name: Check if a value is masked
+      run: echo 'this should be masked'
