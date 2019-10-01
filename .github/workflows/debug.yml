@@ -1,4 +1,4 @@
-name: Examples for those who want to exclude some branches/tags
+name: testing for debug log
 
 on: 
   push
@@ -12,5 +12,5 @@ jobs:
     - uses: actions/checkout@v1
       with:
         fetch-depth: 1
-    - uses: ./actions/transform-ref
-      id: tranform-ref
+    - uses: ./actions/debug
+      id: debug-log
